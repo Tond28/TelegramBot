@@ -28,5 +28,9 @@ bot.onText(/\/bitcoin/, (match) =>{
   bot.sendMessage(match.chat.id, bitOut)
 })
 
+bot.onText(/\/cit/, (match) =>{
+  bot.sendMessage(match.chat.id, HTTPreq.quotes())
+})
+
 
 bot.on("polling_error", console.log);
