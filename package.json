@@ -4,7 +4,9 @@
   "description": "a simple telegram bot for school project",
   "main": "app.js",
   "dependencies": {
+    "mysql": "^2.18.1",
     "node-telegram-bot-api": "^0.53.0",
+    "sha3": "^2.1.4",
     "telegram-bot-api": "^2.0.1",
     "xmlhttprequest": "^1.8.0"
   },
