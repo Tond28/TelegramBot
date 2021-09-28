@@ -81,22 +81,22 @@ module.exports = {
     xhr.send();
 
   },
-  dateFact : function(){
+  dateFact : function(callback){
     const xhr = new XMLHttpRequest();
     xhr.withCredentials = true;
-    url = "https://numbersapi.p.rapidapi.com/" + date.getMonth() +"/" + date.getDate() + "/date?fragment=true&json=true"
+    url = "https://numbersapi.p.rapidapi.com/" + (date.getMonth()+1) +"/" + date.getDate() + "/date?&json=true"
     xhr.addEventListener("readystatechange", function () {
       if (this.readyState === this.DONE) {
-        console.log(this.responseText);
+
+        return callback(JSON.parse(this.responseText).text)
       }
     });
 
     xhr.open("GET", url);
     xhr.setRequestHeader("x-rapidapi-host", "numbersapi.p.rapidapi.com");
-    xhr.setRequestHeader("x-rapidapi-key", "");
+    xhr.setRequestHeader("x-rapidapi-key", fs.readFileSync('./data/TRANSLATE_KEY.token'));
 
     xhr.send();
-    return xhr.responseText
   }
 }
 

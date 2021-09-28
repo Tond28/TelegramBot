@@ -60,7 +60,7 @@ bot.onText(/\/c_language (.+)/, (match, msg) =>{
   })
 })
 
-bot.onText(/\/joinDate/, (match) =>{
+bot.onText(/\/join_date/, (match) =>{
   var hash = db.hash(match.chat.id.toString())
   db.get_date(hash, function(result){
     HTTPreq.translate(match.chat.id.toString(), "La registrazione è stata effettuata", function(translated){
@@ -149,13 +149,15 @@ bot.onText(/\/translate/, (match) =>{
 })
 
 bot.onText(/\/today/, (match) =>{
-  //var hash = db.hash(match.chat.id.toString())
-  var out = HTTPreq.dateFact()
-  out = out.toString()
-  console.log(out)
-  out = out[1].split(",")
-  console.log(out)
-  bot.sendMessage(match.chat.id, out[0])
+  var hash = db.hash(match.chat.id.toString())
+  HTTPreq.dateFact(function(result){
+    var out = "Today, " + result
+    db.get_language(hash, function(lang){
+      HTTPreq.translateUser(out, lang, function(translated){
+        bot.sendMessage(match.chat.id, translated)
+      })
+    })
   })
+})
 
 bot.on("polling_error", console.log);
